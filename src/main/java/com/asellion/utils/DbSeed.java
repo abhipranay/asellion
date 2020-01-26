@@ -12,6 +12,7 @@ import com.github.javafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -31,7 +32,7 @@ public class DbSeed implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... strings) throws Exception {
+    public void run(String... strings) {
         //Password is 'password' but it has been encrypted.
         logger.info("Loading data...");
         User user = getUser();
@@ -39,10 +40,14 @@ public class DbSeed implements CommandLineRunner {
         UserRole userRole = new UserRole();
         userRole.setUser(user);
         userRole.setRole(roleUser);
-        userRoleRepository.save(userRole);
-        logger.info("Saved user");
-        createProducts();
-        logger.info("Created products");
+        try {
+            userRoleRepository.save(userRole);
+            logger.info("Saved user");
+            createProducts();
+            logger.info("Created products");
+        } catch (DataIntegrityViolationException e) {
+            logger.debug("Already Migrated", e);
+        }
     }
 
     private User getAdmin() {
