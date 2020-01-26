@@ -1,4 +1,5 @@
 FROM openjdk:8-jdk-alpine
+RUN apk update && apk add bash
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 ARG DEPENDENCY=target/dependency

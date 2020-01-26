@@ -176,8 +176,13 @@
                     <schemas>
                         <schema>asellion</schema>
                     </schemas>
-                    <url>jdbc:mysql://172.20.1.2:3306/asellion?useSSL=false</url>
+                    <url>jdbc:mysql://mysqldb/asellion?useSSL=false</url>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>1.8.0</version>
             </plugin>
         </plugins>
     </build>
