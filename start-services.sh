@@ -21,6 +21,7 @@ else
   exit 1
 fi
 
+mvn clean install
 mvn jib:dockerBuild -Dimage=asellion/app
 
 echo "Starting services..."

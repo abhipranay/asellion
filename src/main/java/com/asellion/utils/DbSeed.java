@@ -75,7 +75,11 @@ public class DbSeed implements CommandLineRunner {
         Faker faker = new Faker();
         for (int i = 0; i < num; i++) {
             Product product = new Product();
-            product.setProductName(faker.superhero().name());
+            String name = faker.superhero().name();
+            if (name.length() > 30) {
+                name = name.substring(0, 29);
+            }
+            product.setProductName(name);
             product.setCurrentPrice(100.01);
             productRepository.save(product);
         }

@@ -18,7 +18,11 @@ public class ProductStub {
 
     public static Product generateProduct() {
         Product product = new Product();
-        product.setProductName(faker.superhero().name());
+        String name = faker.superhero().name();
+        if (name.length() > 30) {
+            name = name.substring(0, 29);
+        }
+        product.setProductName(name);
         product.setCurrentPrice(random.nextDouble());
         return product;
     }
