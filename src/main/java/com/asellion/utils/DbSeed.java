@@ -71,7 +71,7 @@ public class DbSeed implements CommandLineRunner {
     }
 
     private void createProducts() {
-        int num = 10;
+        int num = 100;
         Faker faker = new Faker();
         for (int i = 0; i < num; i++) {
             Product product = new Product();

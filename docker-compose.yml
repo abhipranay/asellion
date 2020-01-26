@@ -16,6 +16,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: asellion
+    volumes:
+      - ./data/mysql:/var/lib/mysql
     ports:
       - 3306:3306
   adminer:
@@ -27,9 +29,18 @@ services:
     image: asellion/app
     restart: always
     depends_on:
-      - mysqldb
+      - flyway
     ports:
       - 8080:8080
+    networks:
+      asellion:
+  flyway:
+    image: flyway/flyway
+    command: -url=jdbc:mysql://mysqldb/asellion?useSSL=false -schemas=asellion -user=root -password=password -connectRetries=60 migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      - mysqldb
     networks:
       asellion:
 networks:
