@@ -25,3 +25,5 @@ nbdist/
 
 #Hibernate search's indexes.
 com.springboilerplate.springboilerplate.app.user.User
+
+data/*
